@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pylock-lint"
+version = "0.1.0"
+description = "Static CI linter for PEP 751 pylock.toml: hash completeness, sdist-only builds, platform portability, and drift vs pyproject.toml."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "fernforge", email = "fernforgehq@gmail.com" }]
+keywords = ["pylock", "pep-751", "lockfile", "reproducible", "packaging", "linter", "ci", "pip", "supply-chain"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: System :: Software Distribution",
+]
+dependencies = [
+    "packaging>=21.0",
+    "tomli>=1.1.0; python_version < '3.11'",
+]
+
+[project.urls]
+Homepage = "https://github.com/fernforge/pylock-lint"
+Repository = "https://github.com/fernforge/pylock-lint"
+Issues = "https://github.com/fernforge/pylock-lint/issues"
+
+[project.scripts]
+pylock-lint = "pylock_lint.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pylock_lint"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/pylock_lint", "README.md", "LICENSE", "tests"]

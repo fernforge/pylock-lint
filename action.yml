@@ -1,0 +1,43 @@
+name: "pylock-lint"
+description: "Static CI check for PEP 751 pylock.toml: hashes, sdist-only, portability, pyproject drift."
+branding:
+  icon: "lock"
+  color: "blue"
+inputs:
+  paths:
+    description: "pylock.toml files or globs to lint (space-separated). Default: ./pylock*.toml"
+    required: false
+    default: ""
+  pyproject:
+    description: "Path to pyproject.toml to check the lock is in sync with."
+    required: false
+    default: ""
+  require-cross-platform:
+    description: "Fail if committed wheels cover only one platform."
+    required: false
+    default: "false"
+  strict:
+    description: "Treat warnings as failures too."
+    required: false
+    default: "false"
+  version:
+    description: "Version of pylock-lint to install from PyPI (default: latest)."
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+    - name: Install pylock-lint
+      shell: bash
+      run: |
+        pkg="pylock-lint"
+        if [ -n "${{ inputs.version }}" ]; then pkg="pylock-lint==${{ inputs.version }}"; fi
+        python -m pip install --disable-pip-version-check "$pkg"
+    - name: Run pylock-lint
+      shell: bash
+      run: |
+        args=""
+        [ -n "${{ inputs.pyproject }}" ] && args="$args --pyproject ${{ inputs.pyproject }}"
+        [ "${{ inputs.require-cross-platform }}" = "true" ] && args="$args --require-cross-platform"
+        [ "${{ inputs.strict }}" = "true" ] && args="$args --strict"
+        python -m pylock_lint $args ${{ inputs.paths }}

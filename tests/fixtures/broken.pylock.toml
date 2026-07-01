@@ -1,0 +1,27 @@
+lock-version = "1.0"
+# created-by intentionally omitted -> PL013
+
+# single-platform, pins a platform-specific wheel with no hashes
+[[packages]]
+name = "numpy"
+version = "2.1.0"
+
+[[packages.wheels]]
+name = "numpy-2.1.0-cp311-cp311-manylinux_2_17_x86_64.whl"
+url = "https://files.pythonhosted.org/numpy-2.1.0-cp311-cp311-manylinux_2_17_x86_64.whl"
+# hashes omitted -> PL001
+
+# sdist-only -> PL002
+[[packages]]
+name = "somepkg"
+version = "1.0.0"
+
+[packages.sdist]
+name = "somepkg-1.0.0.tar.gz"
+url = "https://files.pythonhosted.org/somepkg-1.0.0.tar.gz"
+hashes = { sha256 = "aaaa" }
+
+# no source at all -> PL003
+[[packages]]
+name = "ghost"
+version = "0.0.1"

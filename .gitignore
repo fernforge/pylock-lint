@@ -1,0 +1,9 @@
+.v/
+.venv/
+dist/
+build/
+*.egg-info/
+__pycache__/
+.pytest_cache/
+*.pyc
+PROGRESS.md
