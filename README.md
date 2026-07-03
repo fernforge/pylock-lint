@@ -88,6 +88,20 @@ also fails on warnings.
 
 The action installs the package and runs it against your committed lock on every push.
 
+## pre-commit
+
+Add it to `.pre-commit-config.yaml` so a bad lock is caught before it's committed:
+
+```yaml
+- repo: https://github.com/fernforge/pylock-lint
+  rev: v0.1.1
+  hooks:
+    - id: pylock-lint
+```
+
+The hook runs only when a `pylock.toml` (or `pylock.*.toml`) is staged, and passes the changed
+files straight to the linter.
+
 ## What it does not do
 
 No network calls. It won't fetch the referenced wheels or re-resolve your dependency graph — it

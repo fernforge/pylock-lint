@@ -1,0 +1,7 @@
+- id: pylock-lint
+  name: pylock-lint
+  description: Check committed pylock.toml files are reproducible and portable (PEP 751)
+  entry: pylock-lint
+  language: python
+  files: (?:^|/)pylock(\.[^/]+)?\.toml$
+  pass_filenames: true
